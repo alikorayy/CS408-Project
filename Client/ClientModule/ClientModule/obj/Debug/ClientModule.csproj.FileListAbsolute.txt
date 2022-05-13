@@ -1,0 +1,10 @@
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\bin\Debug\ClientModule.exe.config
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\bin\Debug\ClientModule.exe
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\bin\Debug\ClientModule.pdb
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.csproj.AssemblyReference.cache
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.Form1.resources
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.Properties.Resources.resources
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.csproj.GenerateResource.cache
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.csproj.CoreCompileInputs.cache
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.exe
+E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.pdb
