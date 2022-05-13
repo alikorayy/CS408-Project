@@ -42,7 +42,7 @@ namespace ServerModule
             this.portTextBox.Name = "portTextBox";
             this.portTextBox.Size = new System.Drawing.Size(163, 20);
             this.portTextBox.TabIndex = 0;
-            this.portTextBox.TextChanged += new System.EventHandler(this.portTextBox_TextChanged);
+            this.portTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // labelPort
             // 
@@ -52,6 +52,7 @@ namespace ServerModule
             this.label1.Size = new System.Drawing.Size(46, 17);
             this.label1.TabIndex = 1;
             this.label1.Text = "label1";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // buttonListen
             // 
