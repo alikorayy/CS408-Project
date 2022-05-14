@@ -33,6 +33,7 @@ namespace ServerModule
             this.labelPort = new System.Windows.Forms.Label();
             this.serverConsole = new System.Windows.Forms.RichTextBox();
             this.buttonListen = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // portTextBox
@@ -42,17 +43,21 @@ namespace ServerModule
             this.portTextBox.Name = "portTextBox";
             this.portTextBox.Size = new System.Drawing.Size(163, 20);
             this.portTextBox.TabIndex = 0;
-            this.portTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // labelPort
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.labelPort.Location = new System.Drawing.Point(0, 0);
+            this.labelPort.Name = "labelPort";
+            this.labelPort.Size = new System.Drawing.Size(100, 23);
+            this.labelPort.TabIndex = 5;
+            // 
+            // serverConsole
+            // 
+            this.serverConsole.Location = new System.Drawing.Point(37, 88);
+            this.serverConsole.Name = "serverConsole";
+            this.serverConsole.Size = new System.Drawing.Size(506, 197);
+            this.serverConsole.TabIndex = 4;
+            this.serverConsole.Text = "";
             // 
             // buttonListen
             // 
@@ -64,11 +69,21 @@ namespace ServerModule
             this.buttonListen.UseVisualStyleBackColor = true;
             this.buttonListen.Click += new System.EventHandler(this.buttonListen_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(49, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Port:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonListen);
             this.Controls.Add(this.serverConsole);
             this.Controls.Add(this.labelPort);
@@ -87,6 +102,7 @@ namespace ServerModule
         private System.Windows.Forms.Label labelPort;
         private System.Windows.Forms.RichTextBox serverConsole;
         private System.Windows.Forms.Button buttonListen;
+        private System.Windows.Forms.Label label1;
     }
 }
 
