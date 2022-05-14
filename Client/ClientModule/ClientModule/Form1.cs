@@ -16,7 +16,6 @@ namespace ClientModule
     {
         bool terminating = false;
         bool connected = false;
-        bool username_check = false;
         Socket clientsocket;
         public Form1()
         {
@@ -32,27 +31,30 @@ namespace ClientModule
             string IP = IP_TextBox.Text;
             int portnum;
             string user_name = username_text.Text;
-            if (Int32.TryParse(IP_TextBox.Text, out portnum))
+            string username = user_name + "|U";
+            if (Int32.TryParse(portText.Text, out portnum))
             {
                 try
-                {   
+                {
                     clientsocket.Connect(IP, portnum);
                     connected = true;
-                 
+
                     if (user_name != "")
                     {
-                        Byte[] buffer_username = Encoding.Default.GetBytes(user_name);
+                        Byte[] buffer_username = Encoding.Default.GetBytes(username);
                         clientsocket.Send(buffer_username);
-                       
                         Thread receivethread = new Thread(Receive);
                         receivethread.Start();
-                       
-
+                    }
+                    else
+                    {
+                        client_log.AppendText("Please enter a valid username!\n");
                     }
 
                 }
 
-                catch {
+                catch
+                {
                     client_log.AppendText("Could not connected to the server \n");
                 }
             }
@@ -69,41 +71,50 @@ namespace ClientModule
             {
                 try
                 {
+                    string user_name = username_text.Text;
                     Byte[] buffer = new Byte[256];
                     clientsocket.Receive(buffer);
                     string incomingmessage = Encoding.Default.GetString(buffer);
                     incomingmessage = incomingmessage.Substring(0, incomingmessage.IndexOf("\0"));
+                    string message1 = user_name + " tried to connect to the server but cannot!|C";
+                    string message2 = user_name + " has connected.|C";                   
                     if (incomingmessage == "0")
                     {
                         connected = false;
-                        client_log.AppendText("Please enter a vaild username!");
-                        Byte[] buffer_username = Encoding.Default.GetBytes(incomingmessage+"has connected.");
+                        client_log.AppendText("Please enter a vaild username! 0 \n");
+                        Byte[] buffer_username = Encoding.Default.GetBytes(message1);
                         clientsocket.Send(buffer_username);
                         clientsocket.Close();
 
                     }
-                    else if(incomingmessage == "1") {
-                        client_log.AppendText("Hello"+incomingmessage+"!"+ "You are connected to the server.");
+                    else if (incomingmessage == "1")
+                    {
+                        client_log.AppendText("Hello " + user_name + "!" + " You are connected to the server.\n");
+                        Byte[] message = Encoding.Default.GetBytes(message2);
+                        clientsocket.Send(message);
                         connect_button.Enabled = false;
                         disconnect_button.Enabled = true;
                         post_box.Enabled = true;
                         allposts_button.Enabled = true;
                         send_button.Enabled = true;
                     }
-                    client_log.AppendText(incomingmessage + "\n");
+                    else
+                    {
+                        client_log.AppendText(incomingmessage + "\n");
+                    }
+                   
                 }
                 catch
                 {
+                    string user_name = username_text.Text;
+                    string message3 = user_name + " has disconnected.|C";
                     if (!terminating)
                     {
-
                         connect_button.Enabled = true;
-                        post_box.Enabled = false;
-                        allposts_button.Enabled = false;
-                        send_button.Enabled = false;
-                        disconnect_button.Enabled = false;
-
+                        disconnect_button.Enabled = false;                        
                     }
+                    Byte[] message = Encoding.Default.GetBytes(message3);
+                    clientsocket.Send(message);
                     clientsocket.Close();
                     connected = false;
                 }

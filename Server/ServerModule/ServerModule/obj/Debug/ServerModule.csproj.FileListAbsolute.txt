@@ -1,0 +1,10 @@
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\bin\Debug\ServerModule.exe.config
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\bin\Debug\ServerModule.exe
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\bin\Debug\ServerModule.pdb
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.csproj.AssemblyReference.cache
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.Form1.resources
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.Properties.Resources.resources
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.csproj.GenerateResource.cache
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.csproj.CoreCompileInputs.cache
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.exe
+E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.pdb
