@@ -32,7 +32,7 @@ namespace ClientModule
             this.IP_TextBox = new System.Windows.Forms.TextBox();
             this.portText = new System.Windows.Forms.TextBox();
             this.username_text = new System.Windows.Forms.TextBox();
-            this.post_box = new System.Windows.Forms.TextBox();
+            this.postTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,7 +47,7 @@ namespace ClientModule
             // IP_TextBox
             // 
             this.IP_TextBox.Location = new System.Drawing.Point(115, 35);
-            this.IP_TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.IP_TextBox.Margin = new System.Windows.Forms.Padding(2);
             this.IP_TextBox.Name = "IP_TextBox";
             this.IP_TextBox.Size = new System.Drawing.Size(153, 20);
             this.IP_TextBox.TabIndex = 0;
@@ -55,7 +55,7 @@ namespace ClientModule
             // portText
             // 
             this.portText.Location = new System.Drawing.Point(115, 72);
-            this.portText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.portText.Margin = new System.Windows.Forms.Padding(2);
             this.portText.Name = "portText";
             this.portText.Size = new System.Drawing.Size(153, 20);
             this.portText.TabIndex = 1;
@@ -63,19 +63,19 @@ namespace ClientModule
             // username_text
             // 
             this.username_text.Location = new System.Drawing.Point(115, 121);
-            this.username_text.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.username_text.Margin = new System.Windows.Forms.Padding(2);
             this.username_text.Name = "username_text";
             this.username_text.Size = new System.Drawing.Size(153, 20);
             this.username_text.TabIndex = 2;
             // 
-            // post_box
+            // postTextBox
             // 
-            this.post_box.Enabled = false;
-            this.post_box.Location = new System.Drawing.Point(115, 236);
-            this.post_box.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.post_box.Name = "post_box";
-            this.post_box.Size = new System.Drawing.Size(153, 20);
-            this.post_box.TabIndex = 3;
+            this.postTextBox.Enabled = false;
+            this.postTextBox.Location = new System.Drawing.Point(115, 236);
+            this.postTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.postTextBox.Name = "postTextBox";
+            this.postTextBox.Size = new System.Drawing.Size(153, 20);
+            this.postTextBox.TabIndex = 3;
             // 
             // label1
             // 
@@ -120,7 +120,7 @@ namespace ClientModule
             // connect_button
             // 
             this.connect_button.Location = new System.Drawing.Point(296, 35);
-            this.connect_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.connect_button.Margin = new System.Windows.Forms.Padding(2);
             this.connect_button.Name = "connect_button";
             this.connect_button.Size = new System.Drawing.Size(84, 28);
             this.connect_button.TabIndex = 8;
@@ -132,7 +132,7 @@ namespace ClientModule
             // 
             this.disconnect_button.Enabled = false;
             this.disconnect_button.Location = new System.Drawing.Point(296, 89);
-            this.disconnect_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.disconnect_button.Margin = new System.Windows.Forms.Padding(2);
             this.disconnect_button.Name = "disconnect_button";
             this.disconnect_button.Size = new System.Drawing.Size(84, 29);
             this.disconnect_button.TabIndex = 9;
@@ -143,7 +143,7 @@ namespace ClientModule
             // 
             this.send_button.Enabled = false;
             this.send_button.Location = new System.Drawing.Point(296, 230);
-            this.send_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.send_button.Margin = new System.Windows.Forms.Padding(2);
             this.send_button.Name = "send_button";
             this.send_button.Size = new System.Drawing.Size(63, 27);
             this.send_button.TabIndex = 10;
@@ -155,17 +155,18 @@ namespace ClientModule
             // 
             this.allposts_button.Enabled = false;
             this.allposts_button.Location = new System.Drawing.Point(331, 323);
-            this.allposts_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.allposts_button.Margin = new System.Windows.Forms.Padding(2);
             this.allposts_button.Name = "allposts_button";
             this.allposts_button.Size = new System.Drawing.Size(62, 27);
             this.allposts_button.TabIndex = 11;
             this.allposts_button.Text = "All Posts";
             this.allposts_button.UseVisualStyleBackColor = true;
+            this.allposts_button.Click += new System.EventHandler(this.allposts_button_Click);
             // 
             // client_log
             // 
             this.client_log.Location = new System.Drawing.Point(428, 39);
-            this.client_log.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.client_log.Margin = new System.Windows.Forms.Padding(2);
             this.client_log.Name = "client_log";
             this.client_log.ReadOnly = true;
             this.client_log.Size = new System.Drawing.Size(210, 312);
@@ -186,11 +187,11 @@ namespace ClientModule
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.post_box);
+            this.Controls.Add(this.postTextBox);
             this.Controls.Add(this.username_text);
             this.Controls.Add(this.portText);
             this.Controls.Add(this.IP_TextBox);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -203,7 +204,7 @@ namespace ClientModule
         private System.Windows.Forms.TextBox IP_TextBox;
         private System.Windows.Forms.TextBox portText;
         private System.Windows.Forms.TextBox username_text;
-        private System.Windows.Forms.TextBox post_box;
+        private System.Windows.Forms.TextBox postTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

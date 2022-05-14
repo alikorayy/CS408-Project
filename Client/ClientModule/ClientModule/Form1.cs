@@ -21,8 +21,12 @@ namespace ClientModule
         {
             Control.CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
-            //this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
+            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
             //this.FormClosing += new FormClosingEventHandler(disconnect_button_Click);
+        }
+        public static String GetTimestamp(DateTime value)
+        {
+            return value.ToString("yyyy-MM-ddTHH:mm:ss");
         }
 
         private void connect_button_Click(object sender, EventArgs e)
@@ -72,7 +76,7 @@ namespace ClientModule
                 try
                 {
                     string user_name = username_text.Text;
-                    Byte[] buffer = new Byte[256];
+                    Byte[] buffer = new Byte[1000];
                     clientsocket.Receive(buffer);
                     string incomingmessage = Encoding.Default.GetString(buffer);
                     incomingmessage = incomingmessage.Substring(0, incomingmessage.IndexOf("\0"));
@@ -94,27 +98,24 @@ namespace ClientModule
                         clientsocket.Send(message);
                         connect_button.Enabled = false;
                         disconnect_button.Enabled = true;
-                        post_box.Enabled = true;
+                        postTextBox.Enabled = true;
                         allposts_button.Enabled = true;
                         send_button.Enabled = true;
                     }
                     else
                     {
-                        client_log.AppendText(incomingmessage + "\n");
+                        client_log.AppendText(incomingmessage + "\n");                        
                     }
                    
                 }
                 catch
                 {
-                    string user_name = username_text.Text;
-                    string message3 = user_name + " has disconnected.|C";
+                    
                     if (!terminating)
                     {
                         connect_button.Enabled = true;
                         disconnect_button.Enabled = false;                        
-                    }
-                    Byte[] message = Encoding.Default.GetBytes(message3);
-                    clientsocket.Send(message);
+                    }                    
                     clientsocket.Close();
                     connected = false;
                 }
@@ -125,6 +126,13 @@ namespace ClientModule
 
         private void Form1_FormClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (connected == true)
+            {
+                string user_name = username_text.Text;
+                string message3 = user_name + " has disconnected.|C";
+                Byte[] message = Encoding.Default.GetBytes(message3);
+                clientsocket.Send(message);
+            }
             connected = false;
             terminating = true;
             Environment.Exit(0);
@@ -132,7 +140,22 @@ namespace ClientModule
 
         private void send_button_Click(object sender, EventArgs e)
         {
+            string user_name = username_text.Text;
+            string postContent = postTextBox.Text;
+            string timeStamp = GetTimestamp(DateTime.Now);
+            string message1 = user_name + " has sent a post:";
+            string message2 = message1 + ";" + user_name + ";" + postContent + ";" + timeStamp + "|P";       
+            Byte[] message31 = Encoding.Default.GetBytes(message2);
+            clientsocket.Send(message31);
+        }
 
+        private void allposts_button_Click(object sender, EventArgs e)
+        {
+            string user_name = username_text.Text;
+            string message1 = user_name + "|R";
+            Byte[] message = Encoding.Default.GetBytes(message1);
+            clientsocket.Send(message);
+            client_log.AppendText("Showing all posts from clients:\n");
         }
     }
 }

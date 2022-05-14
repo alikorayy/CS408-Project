@@ -20,6 +20,7 @@ namespace ServerModule
         List<Socket> clientSockets = new List<Socket>();
         bool terminate = false;
         bool listening = false;
+        int postID = 0;
         public Form1()
         {
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -85,7 +86,7 @@ namespace ServerModule
             {
                 try
                 {
-                    Byte[] buffer = new Byte[64];
+                    Byte[] buffer = new Byte[1000];
                     thisClient.Receive(buffer);
                     string incomingMessage = Encoding.Default.GetString(buffer);
                     incomingMessage = incomingMessage.Substring(0, incomingMessage.IndexOf("\0"));
@@ -122,12 +123,57 @@ namespace ServerModule
                     {
                         serverConsole.AppendText(message + "\n");
                     }
+                    else if (type == "P")
+                    {                       
+                        string[] newData = message.Split(';');
+                        string consoleMessage = newData[0];
+                        string username = newData[1];
+                        string postContent = newData[2];
+                        string timeStamp = newData[3];
+                        if (postID == 0)
+                        {
+                            postID = 1;
+                            string newContent = username + "|" + postID + "|" + postContent + "|" + timeStamp;
+                            File.AppendAllText(@"../../post-db.txt", newContent + Environment.NewLine);
+                            serverConsole.AppendText(consoleMessage + "\n" + postContent + "\n");
+                        }
+                        else
+                        {
+                            foreach (string line in File.ReadLines(@"../../post-db.txt"))
+                            {
+                                string[] lineData = line.Split('|');
+                                int tempPostID = Int32.Parse(lineData[1]);
+                                if (tempPostID == postID)
+                                {
+                                    postID += 1;
+                                }
+                            }
+                            string newContent = username + "|" + postID + "|" + postContent + "|" + timeStamp;
+                            File.AppendAllText(@"../../post-db.txt", newContent + Environment.NewLine);
+                            serverConsole.AppendText(consoleMessage + "\n" + postContent + "\n");
+                        }
+                    }
+                    else if (type == "R")
+                    {
+                        foreach (string line in File.ReadLines(@"../../post-db.txt"))
+                        {                             
+                            string[] lineData = line.Split('|');
+                            string tempUsername = lineData[0];
+                            string tempPostID = lineData[1];
+                            string tempPostContent = lineData[2];
+                            string tempTimeStamp = lineData[3];
+                            if (message != tempUsername)
+                            {
+                                string postMessage = "Username: " + tempUsername + "\n" + "PostID: " + tempPostID + "\n" + "Post: " + tempPostContent + "\n" + "Time: " + tempTimeStamp + "\n";
+                                Byte[] postInfo = Encoding.Default.GetBytes(postMessage);
+                                thisClient.Send(postInfo);
+                            }   
 
+                        }
+                    }
                 }
                 catch
-                {
-           
-
+                {         
                     if (!terminate)
                     {
                         
@@ -151,9 +197,16 @@ namespace ServerModule
             Environment.Exit(0);
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-
+            foreach (string line in File.ReadLines(@"../../post-db.txt"))
+            {
+                string[] lineData = line.Split('|');
+                int tempPostID = Int32.Parse(lineData[1]);
+                postID = tempPostID;
+            }
+            string maxID = postID.ToString();
+            serverConsole.AppendText(maxID);
         }
     }
 }
