@@ -32,7 +32,7 @@ namespace ClientModule
             this.IP_TextBox = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.username_text = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.post_box = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,13 +65,13 @@ namespace ClientModule
             this.username_text.Size = new System.Drawing.Size(203, 22);
             this.username_text.TabIndex = 2;
             // 
-            // textBox4
+            // post_box
             // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(153, 290);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(203, 22);
-            this.textBox4.TabIndex = 3;
+            this.post_box.Enabled = false;
+            this.post_box.Location = new System.Drawing.Point(153, 290);
+            this.post_box.Name = "post_box";
+            this.post_box.Size = new System.Drawing.Size(203, 22);
+            this.post_box.TabIndex = 3;
             // 
             // label1
             // 
@@ -138,6 +138,7 @@ namespace ClientModule
             this.send_button.TabIndex = 10;
             this.send_button.Text = "Send";
             this.send_button.UseVisualStyleBackColor = true;
+            this.send_button.Click += new System.EventHandler(this.send_button_Click);
             // 
             // allposts_button
             // 
@@ -172,7 +173,7 @@ namespace ClientModule
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.post_box);
             this.Controls.Add(this.username_text);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.IP_TextBox);
@@ -188,7 +189,7 @@ namespace ClientModule
         private System.Windows.Forms.TextBox IP_TextBox;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox username_text;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox post_box;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

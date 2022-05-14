@@ -14,6 +14,7 @@ namespace ClientModule
 {
     public partial class Form1 : Form
     {
+        bool terminating = false;
         bool connected = false;
         bool username_check = false;
         Socket clientsocket;
@@ -78,10 +79,16 @@ namespace ClientModule
                         client_log.AppendText("Please enter a vaild username!");
                         Byte[] buffer_username = Encoding.Default.GetBytes(incomingmessage+"has connected.");
                         clientsocket.Send(buffer_username);
+                        clientsocket.Close();
 
                     }
-                    else if(incomingmessage == "0") {
+                    else if(incomingmessage == "1") {
                         client_log.AppendText("Hello"+incomingmessage+"!"+ "You are connected to the server.");
+                        connect_button.Enabled = false;
+                        disconnect_button.Enabled = true;
+                        post_box.Enabled = true;
+                        allposts_button.Enabled = true;
+                        send_button.Enabled = true;
                     }
                     client_log.AppendText(incomingmessage + "\n");
                 }
@@ -91,12 +98,9 @@ namespace ClientModule
                     {
 
                         connect_button.Enabled = true;
-                        name_box.Enabled = false;
-                        surname_box.Enabled = false;
-                        username_box.Enabled = false;
-                        password_box.Enabled = false;
-                        account_button.Enabled = true;
-                        account_button.Enabled = false;
+                        post_box.Enabled = false;
+                        allposts_button.Enabled = false;
+                        send_button.Enabled = false;
                         disconnect_button.Enabled = false;
 
                     }
@@ -107,5 +111,17 @@ namespace ClientModule
         }
 
 
+
+        private void Form1_FormClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            connected = false;
+            terminating = true;
+            Environment.Exit(0);
+        }
+
+        private void send_button_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
