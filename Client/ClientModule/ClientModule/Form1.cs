@@ -86,7 +86,7 @@ namespace ClientModule
                     if (incomingmessage == "0")
                     {
                         connected = false;
-                        client_log.AppendText("Please enter a vaild username! 0 \n");
+                        client_log.AppendText("This username is not in the database!\n");
                         Byte[] buffer_username = Encoding.Default.GetBytes(message1);
                         clientsocket.Send(buffer_username);
                         clientsocket.Close();
