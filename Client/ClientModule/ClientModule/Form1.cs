@@ -102,6 +102,9 @@ namespace ClientModule
                         postTextBox.Enabled = true;
                         allposts_button.Enabled = true;
                         send_button.Enabled = true;
+                        IP_TextBox.Enabled = false;
+                        portText.Enabled = false;
+                        username_text.Enabled = false;
                     }
                     else if (incomingmessage == "2") 
                     {
@@ -199,6 +202,9 @@ namespace ClientModule
             send_button.Enabled = false;
             allposts_button.Enabled = false;
             disconnect_button.Enabled = false;
+            IP_TextBox.Enabled = true;
+            portText.Enabled = true;
+            username_text.Enabled = true;
             client_log.AppendText("You are disconnected!\n");
         }
     }
