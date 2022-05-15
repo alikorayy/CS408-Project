@@ -8,3 +8,13 @@ E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModu
 E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.csproj.CoreCompileInputs.cache
 E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.exe
 E:\Okul\CS408 TERM PROJECT\Server\ServerModule\ServerModule\obj\Debug\ServerModule.pdb
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\bin\Debug\ServerModule.exe.config
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\bin\Debug\ServerModule.exe
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\bin\Debug\ServerModule.pdb
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\obj\Debug\ServerModule.csproj.AssemblyReference.cache
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\obj\Debug\ServerModule.Form1.resources
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\obj\Debug\ServerModule.Properties.Resources.resources
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\obj\Debug\ServerModule.csproj.GenerateResource.cache
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\obj\Debug\ServerModule.csproj.CoreCompileInputs.cache
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\obj\Debug\ServerModule.exe
+D:\CS408 Project\CS408-Project\Server\ServerModule\ServerModule\obj\Debug\ServerModule.pdb
