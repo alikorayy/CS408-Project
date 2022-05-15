@@ -140,19 +140,22 @@ namespace ClientModule
 
         private void send_button_Click(object sender, EventArgs e)
         {
-            string user_name = username_text.Text;
+            string user_name = username_text.Text;                     
             string postContent = postTextBox.Text;
-            string timeStamp = GetTimestamp(DateTime.Now);
+            string timeStamp = GetTimestamp(DateTime.Now);            
             string message1 = user_name + " has sent a post:";
             string message2 = message1 + ";" + user_name + ";" + postContent + ";" + timeStamp + "|P";       
             Byte[] message31 = Encoding.Default.GetBytes(message2);
-            clientsocket.Send(message31);
+            clientsocket.Send(message31);            
             client_log.AppendText(user_name + ": " + postContent + "\n");
         }
 
         private void allposts_button_Click(object sender, EventArgs e)
         {
             string user_name = username_text.Text;
+            string ackMessage = "Showed all posts for " + user_name + ".|C";
+            Byte[] requestMessage = Encoding.Default.GetBytes(ackMessage);
+            clientsocket.Send(requestMessage);
             string message1 = user_name + "|R";
             Byte[] message = Encoding.Default.GetBytes(message1);
             clientsocket.Send(message);

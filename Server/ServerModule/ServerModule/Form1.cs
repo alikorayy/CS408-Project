@@ -156,7 +156,7 @@ namespace ServerModule
                     else if (type == "R")
                     {
                         foreach (string line in File.ReadLines(@"../../post-db.txt"))
-                        {                             
+                        {                           
                             string[] lineData = line.Split('|');
                             string tempUsername = lineData[0];
                             string tempPostID = lineData[1];
