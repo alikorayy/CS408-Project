@@ -76,7 +76,7 @@ namespace ClientModule
                 try
                 {
                     string user_name = username_text.Text;
-                    Byte[] buffer = new Byte[1000];
+                    Byte[] buffer = new Byte[1024];
                     clientsocket.Receive(buffer);
                     string incomingmessage = Encoding.Default.GetString(buffer);
                     incomingmessage = incomingmessage.Substring(0, incomingmessage.IndexOf("\0"));
@@ -147,6 +147,7 @@ namespace ClientModule
             string message2 = message1 + ";" + user_name + ";" + postContent + ";" + timeStamp + "|P";       
             Byte[] message31 = Encoding.Default.GetBytes(message2);
             clientsocket.Send(message31);
+            client_log.AppendText(user_name + ": " + postContent + "\n");
         }
 
         private void allposts_button_Click(object sender, EventArgs e)
@@ -156,6 +157,23 @@ namespace ClientModule
             Byte[] message = Encoding.Default.GetBytes(message1);
             clientsocket.Send(message);
             client_log.AppendText("Showing all posts from clients:\n");
+        }
+
+        private void disconnect_button_Click(object sender, EventArgs e)
+        {
+            string user_name = username_text.Text;
+            string message3 = user_name + " has disconnected.|C";
+            Byte[] message = Encoding.Default.GetBytes(message3);
+            clientsocket.Send(message);
+            connected = false;
+            terminating = true;
+            clientsocket.Close();
+            connect_button.Enabled = true;
+            postTextBox.Enabled = false;
+            send_button.Enabled = false;
+            allposts_button.Enabled = false;
+            disconnect_button.Enabled = false;
+            client_log.AppendText("You are disconnected!\n");
         }
     }
 }

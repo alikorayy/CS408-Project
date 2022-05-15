@@ -138,6 +138,7 @@ namespace ClientModule
             this.disconnect_button.TabIndex = 9;
             this.disconnect_button.Text = "Disconnect";
             this.disconnect_button.UseVisualStyleBackColor = true;
+            this.disconnect_button.Click += new System.EventHandler(this.disconnect_button_Click);
             // 
             // send_button
             // 

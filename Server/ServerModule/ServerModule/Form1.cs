@@ -86,7 +86,7 @@ namespace ServerModule
             {
                 try
                 {
-                    Byte[] buffer = new Byte[1000];
+                    Byte[] buffer = new Byte[1024];
                     thisClient.Receive(buffer);
                     string incomingMessage = Encoding.Default.GetString(buffer);
                     incomingMessage = incomingMessage.Substring(0, incomingMessage.IndexOf("\0"));
@@ -166,6 +166,7 @@ namespace ServerModule
                             {
                                 string postMessage = "Username: " + tempUsername + "\n" + "PostID: " + tempPostID + "\n" + "Post: " + tempPostContent + "\n" + "Time: " + tempTimeStamp + "\n";
                                 Byte[] postInfo = Encoding.Default.GetBytes(postMessage);
+                                Thread.Sleep(1);
                                 thisClient.Send(postInfo);
                             }   
 
@@ -204,9 +205,7 @@ namespace ServerModule
                 string[] lineData = line.Split('|');
                 int tempPostID = Int32.Parse(lineData[1]);
                 postID = tempPostID;
-            }
-            string maxID = postID.ToString();
-            serverConsole.AppendText(maxID);
+            }            
         }
     }
 }
