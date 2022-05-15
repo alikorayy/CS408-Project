@@ -55,6 +55,7 @@ namespace ServerModule
             // 
             this.serverConsole.Location = new System.Drawing.Point(37, 88);
             this.serverConsole.Name = "serverConsole";
+            this.serverConsole.ReadOnly = true;
             this.serverConsole.Size = new System.Drawing.Size(506, 197);
             this.serverConsole.TabIndex = 4;
             this.serverConsole.Text = "";
