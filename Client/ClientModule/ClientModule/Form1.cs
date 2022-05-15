@@ -114,7 +114,10 @@ namespace ClientModule
                     if (!terminating)
                     {
                         connect_button.Enabled = true;
-                        disconnect_button.Enabled = false;                        
+                        disconnect_button.Enabled = false;
+                        postTextBox.Enabled = false;
+                        send_button.Enabled = false;
+                        allposts_button.Enabled = false;
                     }                    
                     clientsocket.Close();
                     connected = false;

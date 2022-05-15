@@ -209,3 +209,5 @@ namespace ServerModule
         }
     }
 }
+
+// iki aynı user girememeli
