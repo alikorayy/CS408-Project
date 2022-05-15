@@ -21,6 +21,7 @@ namespace ServerModule
         bool terminate = false;
         bool listening = false;
         int postID = 0;
+        string[] client_arr = { };
         public Form1()
         {
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -99,6 +100,7 @@ namespace ServerModule
                         bool userExists = false;
                         string confirmMessage = "1";
                         string errorMessage = "0";
+                        string existMessage = "2";
                         foreach (string line in File.ReadLines(@"../../user-db.txt"))
                         {
                             string databaseUser = line;
@@ -108,10 +110,34 @@ namespace ServerModule
                                 break;
                             }
                         }
+                        bool isuseronline = false;
+                        foreach (var e in client_arr)
+                        {
+                            if (e == username)
+                            {
+                                isuseronline = true;
+                                break;
+                            }
+                        }
+                        if (isuseronline == false)
+                        {
+                            Array.Resize(ref client_arr, client_arr.Length + 1);
+                            client_arr[client_arr.Length - 1] = username;
+                        }
+
                         if (userExists)
                         {
-                            Byte[] buffer2 = Encoding.Default.GetBytes(confirmMessage);
-                            thisClient.Send(buffer2);
+                            if (isuseronline == false)
+                            {
+                                Byte[] buffer2 = Encoding.Default.GetBytes(confirmMessage);
+                                thisClient.Send(buffer2);
+                            }
+                            else if (isuseronline)
+                            {
+                                Byte[] buffer4 = Encoding.Default.GetBytes(existMessage);
+                                thisClient.Send(buffer4);
+
+                            }
                         }
                         else
                         {
@@ -124,7 +150,7 @@ namespace ServerModule
                         serverConsole.AppendText(message + "\n");
                     }
                     else if (type == "P")
-                    {                       
+                    {
                         string[] newData = message.Split(';');
                         string consoleMessage = newData[0];
                         string username = newData[1];
@@ -156,7 +182,7 @@ namespace ServerModule
                     else if (type == "R")
                     {
                         foreach (string line in File.ReadLines(@"../../post-db.txt"))
-                        {                           
+                        {
                             string[] lineData = line.Split('|');
                             string tempUsername = lineData[0];
                             string tempPostID = lineData[1];
@@ -168,9 +194,14 @@ namespace ServerModule
                                 Byte[] postInfo = Encoding.Default.GetBytes(postMessage);
                                 Thread.Sleep(1);
                                 thisClient.Send(postInfo);
-                            }   
+                            }
 
                         }
+                    }
+                    else if (type == "D") 
+                    {
+                        string username = message;
+                        client_arr = client_arr.Where(val => val != username).ToArray();
                     }
                 }
                 catch

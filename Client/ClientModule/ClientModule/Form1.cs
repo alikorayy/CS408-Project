@@ -81,7 +81,8 @@ namespace ClientModule
                     string incomingmessage = Encoding.Default.GetString(buffer);
                     incomingmessage = incomingmessage.Substring(0, incomingmessage.IndexOf("\0"));
                     string message1 = user_name + " tried to connect to the server but cannot!|C";
-                    string message2 = user_name + " has connected.|C";                   
+                    string message2 = user_name + " has connected.|C";
+                    string message3 = user_name + " tried to connect to the server but cannot because this user is already connected!|C";
                     if (incomingmessage == "0")
                     {
                         connected = false;
@@ -102,9 +103,17 @@ namespace ClientModule
                         allposts_button.Enabled = true;
                         send_button.Enabled = true;
                     }
+                    else if (incomingmessage == "2") 
+                    {
+                        connected = false;
+                        client_log.AppendText(user_name + " is already connected to the server.\n");
+                        Byte[] buffer_one = Encoding.Default.GetBytes(message3);
+                        clientsocket.Send(buffer_one);
+                        clientsocket.Close();
+                    }
                     else
                     {
-                        client_log.AppendText(incomingmessage + "\n");                        
+                        client_log.AppendText(incomingmessage + "\n");
                     }
                    
                 }
@@ -135,6 +144,10 @@ namespace ClientModule
                 string message3 = user_name + " has disconnected.|C";
                 Byte[] message = Encoding.Default.GetBytes(message3);
                 clientsocket.Send(message);
+                Thread.Sleep(2);
+                string message4 = user_name + "|D";
+                Byte[] exitmessage = Encoding.Default.GetBytes(message4);
+                clientsocket.Send(exitmessage);
             }
             connected = false;
             terminating = true;
@@ -167,10 +180,17 @@ namespace ClientModule
 
         private void disconnect_button_Click(object sender, EventArgs e)
         {
-            string user_name = username_text.Text;
-            string message3 = user_name + " has disconnected.|C";
-            Byte[] message = Encoding.Default.GetBytes(message3);
-            clientsocket.Send(message);
+            if (connected)
+            {
+                string user_name = username_text.Text;
+                string message3 = user_name + " has disconnected.|C";
+                Byte[] message = Encoding.Default.GetBytes(message3);
+                clientsocket.Send(message);
+                Thread.Sleep(2);
+                string message4 = user_name + "|D";
+                Byte[] exitmessage = Encoding.Default.GetBytes(message4);
+                clientsocket.Send(exitmessage);
+            }
             connected = false;
             terminating = true;
             clientsocket.Close();

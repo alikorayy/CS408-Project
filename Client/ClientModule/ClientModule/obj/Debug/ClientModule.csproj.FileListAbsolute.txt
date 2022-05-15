@@ -8,3 +8,13 @@ E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModu
 E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.csproj.CoreCompileInputs.cache
 E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.exe
 E:\Okul\CS408 TERM PROJECT\Client\ClientModule\ClientModule\obj\Debug\ClientModule.pdb
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\bin\Debug\ClientModule.exe.config
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\bin\Debug\ClientModule.exe
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\bin\Debug\ClientModule.pdb
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\obj\Debug\ClientModule.csproj.AssemblyReference.cache
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\obj\Debug\ClientModule.Form1.resources
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\obj\Debug\ClientModule.Properties.Resources.resources
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\obj\Debug\ClientModule.csproj.GenerateResource.cache
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\obj\Debug\ClientModule.csproj.CoreCompileInputs.cache
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\obj\Debug\ClientModule.exe
+D:\CS408 Project\CS408-Project\Client\ClientModule\ClientModule\obj\Debug\ClientModule.pdb
