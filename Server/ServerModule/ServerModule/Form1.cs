@@ -198,6 +198,68 @@ namespace ServerModule
 
                         }
                     }
+                    else if (type == "DEL")
+                    {
+                        string incomingData = message;
+                        string[] dataList = incomingData.Split('-');
+                        string postID = dataList[0];
+                        string username = dataList[1];
+                        int i = 0;
+                        foreach (string line in File.ReadLines(@"../../post-db.txt"))
+                        {                           
+                            string[] lineData = line.Split('|');
+                            string tempUsername = lineData[0];
+                            string tempPostID = lineData[1];
+                            string tempPostContent = lineData[2];
+                            string tempTimeStamp = lineData[3];
+                            if (postID == tempPostID)
+                            {
+                                if(username == tempUsername)
+                                {
+                                    delete_Line(i);
+                                    serverConsole.AppendText("Post with ID:" + postID + " is deleted." );
+                                    string message20 = "Post with ID: " + postID + " is deleted successully!";
+                                    Byte[] send = Encoding.Default.GetBytes(message20);
+                                    thisClient.Send(send);
+                                }
+                                else
+                                {
+                                    serverConsole.AppendText("Post with ID:" + postID + " is not " + username + "'s!");
+                                    string message20 = "Post with ID: " + postID + " is not yours!";
+                                    Byte[] send = Encoding.Default.GetBytes(message20);
+                                    thisClient.Send(send);
+                                }
+                            }
+                            else
+                            {
+                                serverConsole.AppendText("Post with ID:" + postID + " does not exist!");
+                                string message20 = "There is no post with ID:" + postID;
+                                Byte[] send = Encoding.Default.GetBytes(message20);
+                                thisClient.Send(send);
+                            }
+                            i = i + 1;
+                        }
+
+
+                    }
+                    else if (type == "RU")
+                    {
+                        foreach (string line in File.ReadLines(@"../../post-db.txt"))
+                        {
+                            string[] lineData = line.Split('|');
+                            string tempUsername = lineData[0];
+                            string tempPostID = lineData[1];
+                            string tempPostContent = lineData[2];
+                            string tempTimeStamp = lineData[3];
+                            if (message == tempUsername)
+                            {
+                                string postMessage = "Username: " + tempUsername + "\n" + "PostID: " + tempPostID + "\n" + "Post: " + tempPostContent + "\n" + "Time: " + tempTimeStamp + "\n";
+                                Byte[] postInfo = Encoding.Default.GetBytes(postMessage);
+                                Thread.Sleep(1);
+                                thisClient.Send(postInfo);
+                            }
+                        }
+                    }
                     else if (type == "D") 
                     {
                         string username = message;
@@ -237,6 +299,12 @@ namespace ServerModule
                 int tempPostID = Int32.Parse(lineData[1]);
                 postID = tempPostID;
             }            
+        }
+        private void delete_Line(int lineToDelete)
+        {
+            List<string> linesList = File.ReadAllLines(@"../../post-db.txt").ToList();
+            linesList.RemoveAt(lineToDelete);
+            File.WriteAllLines((@"../../post-db.txt"), linesList.ToArray());
         }
     }
 }
