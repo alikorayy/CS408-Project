@@ -105,6 +105,15 @@ namespace ClientModule
                         IP_TextBox.Enabled = false;
                         portText.Enabled = false;
                         username_text.Enabled = false;
+                        removefriend_button.Enabled = true;
+                        username2_text.Enabled = true;
+                        addfriend_button.Enabled = true;
+                        postID_Text.Enabled = true;
+                        delete_button.Enabled = true;
+                        mypost_button.Enabled = true;
+                        friendpost_button.Enabled = true;
+
+
                     }
                     else if (incomingmessage == "2") 
                     {
@@ -130,9 +139,12 @@ namespace ClientModule
                         postTextBox.Enabled = false;
                         send_button.Enabled = false;
                         allposts_button.Enabled = false;
-                    }                    
-                    clientsocket.Close();
+                        IP_TextBox.Enabled = true;
+                        portText.Enabled = true;
+                        username_text.Enabled = true;
+                    }
                     connected = false;
+                    clientsocket.Close();                   
                 }
             }
         }
@@ -207,5 +219,25 @@ namespace ClientModule
             username_text.Enabled = true;
             client_log.AppendText("You are disconnected!\n");
         }
+        private void mypost_button_Click(object sender, EventArgs e)
+        {
+            string user_name = username_text.Text;
+            string ackMessage = "Showed users posts for " + user_name + ".|C";
+            Byte[] requestMessage = Encoding.Default.GetBytes(ackMessage);
+            clientsocket.Send(requestMessage);
+            string message1 = user_name + "|RU";
+            Byte[] message = Encoding.Default.GetBytes(message1);
+            clientsocket.Send(message);
+            client_log.AppendText("Showing your posts:\n");
+        }
+
+        private void delete_button_Click(object sender, EventArgs e)
+        {
+            string user_name = username_text.Text;
+            string postID = postID_Text.Text;
+            string postIDMessage = postID + "-" + user_name + "|DEL";
+            Byte[] postMessage = Encoding.Default.GetBytes(postIDMessage);
+            clientsocket.Send(postMessage);
+        }        
     }
 }
