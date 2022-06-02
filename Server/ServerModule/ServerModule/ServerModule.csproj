@@ -80,6 +80,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="friendlist-db.txt" />
     <Content Include="post-db.txt" />
     <Content Include="user-db.txt" />
   </ItemGroup>

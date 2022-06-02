@@ -112,6 +112,9 @@ namespace ClientModule
                         delete_button.Enabled = true;
                         mypost_button.Enabled = true;
                         friendpost_button.Enabled = true;
+                        string sendMessage = user_name + "|SNDF";
+                        Byte[] buffer_two = Encoding.Default.GetBytes(sendMessage);
+                        clientsocket.Send(buffer_two);
 
 
                     }
@@ -125,7 +128,74 @@ namespace ClientModule
                     }
                     else
                     {
-                        client_log.AppendText(incomingmessage + "\n");
+                        if (incomingmessage.Contains("$#$"))
+                        {
+                            string[] seperator = { "$#$" };
+                            string[] incomingData = incomingmessage.Split(seperator, StringSplitOptions.None);
+                            string tempUsername = incomingData[0];
+                            string tempFriendUsername = incomingData[1];
+                            if (tempUsername == user_name)
+                            {
+                                client_log.AppendText("You have added " + tempFriendUsername + " as friend.\n");
+                                friendlist_box.Items.Add(tempFriendUsername);
+                            }
+                            else if (tempFriendUsername == user_name)
+                            {
+                                client_log.AppendText(tempUsername + " added you as a friend. You are friends now :)\n");
+                                friendlist_box.Items.Add(tempUsername);
+                            }
+
+                        }
+                        else if (incomingmessage.Contains("#$#"))
+                        {
+                            string[] seperator = { "#$#" };
+                            string[] incomingData = incomingmessage.Split(seperator, StringSplitOptions.None);
+                            string tempUsername = incomingData[0];
+                            string tempFriendUsername = incomingData[1];
+                            if (tempUsername == user_name)
+                            {
+                                client_log.AppendText("You can not add " + tempFriendUsername + " as friend because you are already friends.\n");
+                            }
+                            else if (tempFriendUsername == user_name)
+                            {
+                                client_log.AppendText(tempUsername + " tried to add you as a friend but can not. Because you are already friends.\n");
+                            }
+
+                        }
+                        else if(incomingmessage.Contains("&%&"))
+                        {
+                            string[] seperator = { "&%&" };
+                            string[] incomingData = incomingmessage.Split(seperator, StringSplitOptions.None);
+                            string all_friends = incomingData[0];
+                            string[] all_friends_list = all_friends.Split('-');
+                            foreach( var item in all_friends_list)
+                            {
+                                friendlist_box.Items.Add(item);
+                            }
+                        }
+                        
+                        else if (incomingmessage.Contains("&$&"))
+                        {
+                            string[] seperator = { "&$&" };
+                            string[] incomingData = incomingmessage.Split(seperator, StringSplitOptions.None);
+                            string tempUsername = incomingData[0];
+                            string tempFriendUsername = incomingData[1];
+                            if (tempUsername == user_name)
+                            {
+                                client_log.AppendText("You have removed " + tempFriendUsername + " from your friendlist.\n");
+                                friendlist_box.Items.Remove(tempFriendUsername);
+                            }
+                            else if (tempFriendUsername == user_name)
+                            {
+                                client_log.AppendText(tempUsername + " removed you from his/her friendlist. You are no longer friends:(\n");
+                                friendlist_box.Items.Remove(tempUsername);
+                            }
+                        }
+
+                        else
+                        {
+                            client_log.AppendText(incomingmessage + "\n");
+                        }
                     }
                    
                 }
@@ -142,6 +212,14 @@ namespace ClientModule
                         IP_TextBox.Enabled = true;
                         portText.Enabled = true;
                         username_text.Enabled = true;
+                        username2_text.Enabled = false;
+                        addfriend_button.Enabled = false;
+                        postID_Text.Enabled = false;
+                        delete_button.Enabled = false;
+                        mypost_button.Enabled = false;
+                        friendpost_button.Enabled = false;
+                        removefriend_button.Enabled = false;
+                        friendlist_box.Items.Clear();
                     }
                     connected = false;
                     clientsocket.Close();                   
@@ -217,6 +295,14 @@ namespace ClientModule
             IP_TextBox.Enabled = true;
             portText.Enabled = true;
             username_text.Enabled = true;
+            username2_text.Enabled = false;
+            addfriend_button.Enabled = false;
+            postID_Text.Enabled = false;
+            delete_button.Enabled = false;
+            mypost_button.Enabled = false;
+            friendpost_button.Enabled = false;
+            removefriend_button.Enabled = false;
+            friendlist_box.Items.Clear();
             client_log.AppendText("You are disconnected!\n");
         }
         private void mypost_button_Click(object sender, EventArgs e)
@@ -238,6 +324,36 @@ namespace ClientModule
             string postIDMessage = postID + "-" + user_name + "|DEL";
             Byte[] postMessage = Encoding.Default.GetBytes(postIDMessage);
             clientsocket.Send(postMessage);
-        }        
+        }
+
+        private void addfriend_button_Click(object sender, EventArgs e)
+        {
+            string user_name = username_text.Text;
+            string friend_username = username2_text.Text;
+            string addFriendMessage = user_name + "-" + friend_username + "|FRND";
+            Byte[] postMessage = Encoding.Default.GetBytes(addFriendMessage);
+            clientsocket.Send(postMessage);
+        }
+
+        private void friendpost_button_Click(object sender, EventArgs e)
+        {
+            string user_name = username_text.Text;
+            string ackMessage = "Showed friends post of " + user_name + ".|C";
+            Byte[] requestMessage = Encoding.Default.GetBytes(ackMessage);
+            clientsocket.Send(requestMessage);
+            string message1 = user_name + "|FR";
+            Byte[] message = Encoding.Default.GetBytes(message1);
+            clientsocket.Send(message);
+            client_log.AppendText("Showing your friends' posts:\n");
+        }
+
+        private void removefriend_button_Click(object sender, EventArgs e)
+        {
+            string user_name = username_text.Text;
+            string deleted_username = friendlist_box.SelectedItem.ToString();
+            string deleteMessage = user_name +"-"+deleted_username + "|RMVF";
+            Byte[] message = Encoding.Default.GetBytes(deleteMessage);
+            clientsocket.Send(message);
+        }
     }
 }
