@@ -365,8 +365,6 @@ namespace ServerModule
                                     if (tempUsername == friend_username)
                                     {
                                         friend_has_friend = true;
-
-
                                     }
                                 }
                                 if (!is_friend)

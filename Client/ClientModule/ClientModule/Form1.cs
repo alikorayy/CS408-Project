@@ -42,7 +42,7 @@ namespace ClientModule
                 {
                     clientsocket.Connect(IP, portnum);
                     connected = true;
-
+                    terminating = false;
                     if (user_name != "")
                     {
                         Byte[] buffer_username = Encoding.Default.GetBytes(username);
